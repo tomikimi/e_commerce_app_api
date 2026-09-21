@@ -1,6 +1,6 @@
 const express = require("express");
 const pool = require("../db/index");
-const hashPassword = require("../util/hashPassword");
+const { hashPasswordMiddleWare } = require("../util/hashPassword");
 const userRoute = express.Router();
 
 userRoute.get("/getUser/:id", async (req, res) => {
@@ -11,7 +11,14 @@ userRoute.get("/getUser/:id", async (req, res) => {
       [userID],
     );
 
+    // console.log("USER:", req.user);
+    // console.log("SESSION:", req.session);
+    // console.log("SESSION ID:", req.sessionID);
+    // console.log("cookie", req.isAuthenticated());
+
     const result = response.rows[0].select_user_function;
+
+    console.log(result);
 
     if (result.SUCCESS === true) {
       res.status(200).json(result);
@@ -23,7 +30,7 @@ userRoute.get("/getUser/:id", async (req, res) => {
   }
 });
 
-userRoute.post("/postUser", hashPassword, async (req, res) => {
+userRoute.post("/postUser", hashPasswordMiddleWare, async (req, res) => {
   try {
     const { firstName, lastName, email, phoneNumber, homeAddress, state } =
       req.body;
@@ -49,7 +56,9 @@ userRoute.post("/postUser", hashPassword, async (req, res) => {
     } else {
       res.status(400).json(result);
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 userRoute.put("/updateUser/:id", async (req, res) => {

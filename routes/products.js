@@ -2,6 +2,7 @@ const express = require("express");
 const productRoute = express.Router();
 
 productRoute.get("/product", (req, res) => {
+  console.log(req.query);
   console.log(res);
 });
 
