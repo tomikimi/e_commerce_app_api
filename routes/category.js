@@ -23,7 +23,7 @@ categoryRoute.get("/get/:id", async (req, res) => {
   }
 });
 
-categoryRoute.post("/insert", async (req, res) => {
+categoryRoute.post("/post/data", async (req, res) => {
   try {
     const { name } = req.body;
     const response = await pool.query(

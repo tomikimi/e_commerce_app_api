@@ -4,6 +4,7 @@ const passport = require("passport");
 const authenticateRouter = require("./routes/authenticate");
 const categoryRouter = require("./routes/category");
 const userRouter = require("./routes/users");
+const productRoute = require("./routes/products");
 const app = express();
 
 const store = new session.MemoryStore();
@@ -26,5 +27,6 @@ app.use(express.json());
 app.use("/authenticate", authenticateRouter);
 app.use("/category", categoryRouter);
 app.use("/users", userRouter);
+app.use("/products", productRoute);
 
 module.exports = { app };
