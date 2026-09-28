@@ -5,7 +5,7 @@ orderRoute.get("/order", (req, res) => {
   console.log(res);
 });
 
-orderRoute.post("/order", (req, res) => {
+orderRoute.post("/post/order", (req, res) => {
   console.log(res);
 });
 

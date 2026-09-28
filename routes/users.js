@@ -3,6 +3,28 @@ const pool = require("../db/index");
 const { hashPasswordMiddleWare } = require("../util/hashPassword");
 const userRoute = express.Router();
 
+userRoute.get("/", async (req, res) => {
+  try {
+    const isAuthenticated = req.isAuthenticated();
+    if (isAuthenticated === true) {
+      const response = await pool.query(
+        `SELECT PUBLIC.SELECT_USERS_FUNCTION()`,
+      );
+
+      const result = response.rows[0].select_users_function;
+      if (result.SUCCESS === true) {
+        res.status(200).json(result);
+      } else {
+        res.status(400).json(result);
+      }
+    } else {
+      res.status(400).json({ message: "InActive Session, Kindly login" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 userRoute.get("/getUser/:id", async (req, res) => {
   try {
     const userID = parseInt(req.params.id);

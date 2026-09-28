@@ -5,6 +5,8 @@ const authenticateRouter = require("./routes/authenticate");
 const categoryRouter = require("./routes/category");
 const userRouter = require("./routes/users");
 const productRoute = require("./routes/products");
+const cartRoute = require("./routes/carts");
+const orderRoute = require("./routes/orders");
 const app = express();
 
 const store = new session.MemoryStore();
@@ -28,5 +30,7 @@ app.use("/authenticate", authenticateRouter);
 app.use("/category", categoryRouter);
 app.use("/users", userRouter);
 app.use("/products", productRoute);
+app.use("/carts", cartRoute);
+app.use("/orders", orderRoute);
 
 module.exports = { app };

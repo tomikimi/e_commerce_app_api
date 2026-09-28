@@ -44,7 +44,6 @@ categoryRoute.post("/post/data", async (req, res) => {
 categoryRoute.put("/update/:id", async (req, res) => {
   try {
     const categoryID = parseInt(req.params.id);
-    console.log(categoryID);
     const { name } = req.body;
     const response = await pool.query(
       `SELECT PUBLIC.UPDATE_CATEGORY_FUNCTION($1,$2)`,
